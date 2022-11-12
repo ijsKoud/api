@@ -3,9 +3,12 @@
 	"version": "1.0.0",
 	"description": "Personal project template by ijsKoud",
 	"main": "dist/index.js",
+	"type": "module",
 	"author": "ijsKoud <github@ijsKoud.dev>",
 	"license": "MIT",
 	"dependencies": {
+		"@sapphire/timestamp": "^1.0.0",
+		"colorette": "^2.0.19",
 		"express": "^4.18.2",
 		"redis": "^4.5.0"
 	},
