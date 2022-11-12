@@ -27,7 +27,7 @@ export default class {
 					continue;
 				}
 
-				router[route.type](route.route, fn);
+				router[route.type](route.route, (req, res, next) => fn(this.server, req, res, next));
 				this.server.logger.info(`[LOADER]: ${join(category, file)} loaded.`);
 			}
 		}

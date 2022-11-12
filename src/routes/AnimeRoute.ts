@@ -1,7 +1,15 @@
-import type { RouteData, RouteFn } from "../lib/types.js";
+import type { Anime, AnimeApiResponse, RouteData, RouteFn } from "../lib/types.js";
 
-const ListenFn: RouteFn = (req, res) => {
-	res.send("hello world");
+type DatabaseResults = { data: Anime[] } | null;
+
+const ListenFn: RouteFn = async (server, req, res) => {
+	const data = (await server.redis.json.get("anime")) as DatabaseResults;
+	const response: AnimeApiResponse = {
+		list: data?.data ?? [],
+		username: "ijsKoud"
+	};
+
+	res.send(response);
 };
 
 export const route: RouteData = {
