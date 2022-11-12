@@ -4,7 +4,7 @@ import axios from "axios";
 import type { Anime, AnimeListRaw, AnimeDatabaseResults, KistuAnimeAPIResponse } from "../types.js";
 
 const fn = (server: Server) => {
-	const cron = schedule("0 0/10 0 * * * *", async () => {
+	const cron = schedule("0 */10 * * * * *", async () => {
 		const existingData = (await server.redis.json.get("anime")) as AnimeDatabaseResults;
 		const res = await axios.get<AnimeListRaw[]>("https://myanimelist.net/animelist/ijsKoud/load.json?status=7&offset=0");
 

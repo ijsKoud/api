@@ -19,12 +19,19 @@ export default class {
 		const route = await this.loader.load();
 		this.server.use(route);
 
-		MyAnimeListCron(this);
+		this.cron();
+		await this.database();
+		this.server.listen(this.port, () => this.logger.info(`[API]: Server up and running on port ${bold(this.port)}!`));
+	}
 
+	private cron() {
+		MyAnimeListCron(this);
+	}
+
+	private async database() {
 		this.redis.on("ready", () => this.logger.info("[REDIS]: Connection established with remote database."));
 		this.redis.on("error", (err) => this.logger.error("[REDIS]: ", err));
 
 		await this.redis.connect();
-		this.server.listen(this.port, () => this.logger.info(`[API]: Server up and running on port ${bold(this.port)}!`));
 	}
 }

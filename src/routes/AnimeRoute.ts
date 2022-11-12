@@ -12,7 +12,7 @@ const ListenFn: RouteFn = async (server, req, res) => {
 
 export const route: RouteData = {
 	type: "get",
-	route: "/anime"
+	route: "/anime/stats"
 };
 
 export default ListenFn;
