@@ -1,5 +1,7 @@
 import { config } from "dotenv";
-config();
+import { join } from "node:path";
+
+config({ path: join(process.cwd(), "data", ".env") });
 
 import Server from "./lib/Server.js";
 
