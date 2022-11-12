@@ -1,8 +1,8 @@
 <div align="center">
     <img src="https://ijskoud.dev/assets/svg/logo.svg" width="100px" />
-    <h1>project-template</h1>
+    <h1>api</h1>
   
-  <p>Just like an uncoloured drawing.</p>
+  <p>The code behind the API for various projects.</p>
   
   <p align="center">
     <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg" />
@@ -20,11 +20,14 @@
 
 ## Information
 
-This is a template you can use for future projects, it has all the files and dependencies you need to start get started.
+A personal api used for various projects (99.99% of them ran by me).
 
 ## Install
 
-No installation guide available at the moment.
+I have no idea why you would host a fully personalised API. If you do, make sure to:
+- Edit the code to your likings
+- Create a docker build
+- Push it to a Docker Hub
 
 ## Author
 
