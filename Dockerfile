@@ -3,6 +3,9 @@ FROM node:19-alpine
 # Move to correct dir
 WORKDIR /api
 
+# Create correct dirs
+RUN mkdir /api && mkdir /api/data
+
 # Register Environment Variables
 ENV NODE_ENV production
 
