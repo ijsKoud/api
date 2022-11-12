@@ -1,0 +1,35 @@
+{
+	"name": "project-template",
+	"version": "1.0.0",
+	"description": "Personal project template by ijsKoud",
+	"main": "dist/index.js",
+	"author": "ijsKoud <github@ijsKoud.dev>",
+	"license": "MIT",
+	"devDependencies": {
+		"@commitlint/cli": "^17.2.0",
+		"@commitlint/config-angular": "^17.2.0",
+		"@sapphire/eslint-config": "^4.3.8",
+		"@sapphire/prettier-config": "^1.4.4",
+		"@sapphire/ts-config": "^3.3.4",
+		"@types/node": "^18.11.9",
+		"@typescript-eslint/eslint-plugin": "^5.42.1",
+		"@typescript-eslint/parser": "^5.42.1",
+		"eslint": "^8.27.0",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-plugin-prettier": "^4.2.1",
+		"husky": "^8.0.2",
+		"lint-staged": "^13.0.3",
+		"nodemon": "^2.0.20",
+		"typescript": "^4.8.4"
+	},
+	"scripts": {
+		"build": "tsc --build",
+		"start": "node .",
+		"start:dev": "yarn dev:watch && yarn dev:start",
+		"dev:watch": "tsc -w",
+		"dev:start": "nodemon",
+		"lint": "eslint src",
+		"postinstall": "is-ci || husky install"
+	},
+	"packageManager": "yarn@3.2.4"
+}
