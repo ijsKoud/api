@@ -3,6 +3,7 @@
 
 # production
 /dist
+/data
 
 # env files
 .env
