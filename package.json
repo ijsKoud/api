@@ -37,7 +37,6 @@
 	"scripts": {
 		"build": "tsc --build",
 		"start": "node .",
-		"start:dev": "yarn dev:watch || yarn dev:start",
 		"dev:watch": "tsc -w",
 		"dev:start": "nodemon",
 		"lint": "eslint src",
