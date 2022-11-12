@@ -1,20 +1,27 @@
 import { schedule } from "node-cron";
 import type Server from "../Server.js";
 import axios from "axios";
-import type { Anime, AnimeListRaw, KistuAnimeAPIResponse } from "../types.js";
-
-const getBannerImage = async (title: string): Promise<string | undefined> => {
-	const res = await axios.get<KistuAnimeAPIResponse>(`https://kitsu.io/api/edge/anime?filter%5Btext%5D=${encodeURIComponent(title)}`);
-	return res.data.data[0].attributes.coverImage?.tiny;
-};
+import type { Anime, AnimeListRaw, AnimeDatabaseResults, KistuAnimeAPIResponse } from "../types.js";
 
 const fn = (server: Server) => {
 	const cron = schedule("0 0/10 0 * * * *", async () => {
+		const existingData = (await server.redis.json.get("anime")) as AnimeDatabaseResults;
 		const res = await axios.get<AnimeListRaw[]>("https://myanimelist.net/animelist/ijsKoud/load.json?status=7&offset=0");
-		const { data } = res;
+
+		const getBannerImage = async (title: string): Promise<string | undefined> => {
+			const res = await axios.get<KistuAnimeAPIResponse>(`https://kitsu.io/api/edge/anime?filter%5Btext%5D=${encodeURIComponent(title)}`);
+			return res.data.data[0].attributes.coverImage?.tiny;
+		};
+
+		const getBanner = async (title: string): Promise<string> => {
+			const anime = existingData?.data.find((an) => an.title === title);
+			if (anime) return anime.banner;
+
+			return (await getBannerImage(title)) ?? "";
+		};
 
 		const list: Anime[] = await Promise.all(
-			data.map(async (anime) => ({
+			res.data.map(async (anime) => ({
 				title: anime.anime_title,
 				title_english: anime.anime_title_eng,
 				genres: anime.genres.map((genre) => genre.name.toLowerCase()),
@@ -26,7 +33,7 @@ const fn = (server: Server) => {
 				},
 				image: anime.anime_image_path,
 				url: `https://myanimelist.net${anime.anime_url}`,
-				banner: (await getBannerImage(anime.anime_title)) ?? ""
+				banner: await getBanner(anime.anime_title)
 			}))
 		);
 

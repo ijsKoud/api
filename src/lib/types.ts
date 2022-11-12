@@ -1,6 +1,8 @@
 import type { NextFunction, Request, Response } from "express";
 import type Server from "./Server.js";
 
+export type AnimeDatabaseResults = { data: Anime[] } | null;
+
 export interface RouteObject {
 	default: RouteFn;
 	route: RouteData;
