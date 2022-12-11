@@ -8,7 +8,7 @@
 	"license": "MIT",
 	"dependencies": {
 		"@sapphire/timestamp": "^1.0.0",
-		"axios": "^1.2.0",
+		"axios": "^1.2.1",
 		"colorette": "^2.0.19",
 		"dotenv": "^16.0.3",
 		"express": "^4.18.2",
@@ -22,17 +22,17 @@
 		"@sapphire/prettier-config": "^1.4.4",
 		"@sapphire/ts-config": "^3.3.4",
 		"@types/express": "^4.17.14",
-		"@types/node": "^18.11.10",
+		"@types/node": "^18.11.13",
 		"@types/node-cron": "^3.0.6",
-		"@typescript-eslint/eslint-plugin": "^5.45.0",
-		"@typescript-eslint/parser": "^5.45.0",
+		"@typescript-eslint/eslint-plugin": "^5.46.0",
+		"@typescript-eslint/parser": "^5.46.0",
 		"eslint": "^8.29.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-prettier": "^4.2.1",
 		"husky": "^8.0.2",
-		"lint-staged": "^13.0.4",
+		"lint-staged": "^13.1.0",
 		"nodemon": "^2.0.20",
-		"typescript": "^4.9.3"
+		"typescript": "^4.9.4"
 	},
 	"scripts": {
 		"build": "tsc --build",
