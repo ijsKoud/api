@@ -1,10 +1,9 @@
 import { bold } from "colorette";
 import express from "express";
-import { Logger } from "./Logger/Logger.js";
-import { LogLevel } from "./Logger/LoggerTypes.js";
 import RouteLoader from "./RouteLoader.js";
 import { createClient } from "redis";
 import MyAnimeListCron from "./Tasks/MyAnimeList.js";
+import { Logger, LogLevel } from "@snowcrystals/icicle";
 
 export default class {
 	public server = express();
