@@ -1,19 +1,4 @@
-import type { NextFunction, Request, Response } from "express";
-import type Server from "./Server.js";
-
-export type AnimeDatabaseResults = { data: Anime[] } | null;
-
-export interface RouteObject {
-	default: RouteFn;
-	route: RouteData;
-}
-
-export interface RouteData {
-	type: "get" | "post" | "put" | "delete" | "patch";
-	route: string;
-}
-
-export type RouteFn = (server: Server, req: Request, res: Response, next: NextFunction) => unknown | Promise<unknown>;
+export type AnimeDatabaseResults = Anime[] | null;
 
 export enum AnimeStatus {
 	WATCHING,

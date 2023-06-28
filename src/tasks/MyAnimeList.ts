@@ -1,11 +1,12 @@
-import { schedule } from "node-cron";
-import type Server from "../Server.js";
 import axios from "axios";
-import type { Anime, AnimeListRaw, AnimeDatabaseResults, KistuAnimeAPIResponse } from "../types.js";
+import type { Anime, AnimeListRaw, KistuAnimeAPIResponse } from "../lib/types.js";
+import type { ApiServer } from "../lib/Server.js";
+import { Time } from "@sapphire/timestamp";
 
-const fn = (server: Server) => {
-	const cron = schedule("0 */10 * * * * *", async () => {
-		const existingData = (await server.redis.json.get("anime")) as AnimeDatabaseResults;
+const fn = (server: ApiServer) => {
+	const cronFunction = async () => {
+		const exisingData = await server.redis.get("anime");
+		const parsedData = JSON.parse(exisingData || "[]") as Anime[];
 		const res = await axios.get<AnimeListRaw[]>("https://myanimelist.net/animelist/ijsKoud/load.json?status=7&offset=0");
 
 		const getBannerImage = async (title: string): Promise<string | undefined> => {
@@ -14,7 +15,7 @@ const fn = (server: Server) => {
 		};
 
 		const getBanner = async (title: string): Promise<string> => {
-			const anime = existingData?.data.find((an) => an.title === title);
+			const anime = parsedData.find((an) => an.title === title);
 			if (anime) return anime.banner;
 
 			return (await getBannerImage(title)) ?? "";
@@ -37,11 +38,11 @@ const fn = (server: Server) => {
 			}))
 		);
 
-		await server.redis.json.set("anime", "$", { data: list as any });
+		await server.redis.set("anime", JSON.stringify(list));
 		server.logger.info("[CRON_MAL]: Updated the anime watch status information.");
-	});
+	};
 
-	cron.start();
+	setInterval(cronFunction, Time.Minute * 10);
 };
 
 export default fn;
