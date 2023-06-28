@@ -1,0 +1,8 @@
+[project]
+icon = "https://ijskoud.dev/assets/svg/logo.svg"
+icon_width = "100px"
+version = "1.0.4"
+
+[variables]
+information = "A personal api used for various projects (99.99% of them ran by me)."
+installation = "Maybe soon:tm:"
