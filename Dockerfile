@@ -1,24 +1,36 @@
-FROM node:20-alpine
+FROM node:18-alpine AS base
 
-# Move to correct dir
+
+# --- Builder ---
+FROM base AS Builder
 WORKDIR /api
 
-# Create correct dirs
-RUN mkdir /api/data
+RUN apk add --no-cache libc6-compat
+RUN apk update
 
-# Register Environment Variables
-ENV NODE_ENV production
-
-# Copy Existing Files
-COPY package.json yarn.lock .yarnrc.yml tsconfig.json ./
-COPY .yarn ./.yarn
 COPY src ./src
-
-# Install dependencies
-RUN yarn install --immutable
+COPY .yarn/releases ./.yarn/releases
+COPY .yarn/plugins ./.yarn/plugins
+COPY tsconfig.json package.json yarn.lock .yarnrc.yml ./
 
 # Build the application
+RUN yarn --immutable
 RUN yarn build
 
-# Run NodeJS script
-CMD ["yarn", "run", "start"]
+# Remove dev-dependencies from node_modules
+RUN yarn pinst --disable
+RUN yarn workspaces focus --production --all
+
+
+# --- Runner ---
+FROM base AS runner
+WORKDIR /api
+
+ENV NODE_ENV production
+USER node
+
+COPY --from=builder --chown=node:node /api/node_modules ./node_modules
+COPY --from=builder --chown=node:node /api/package.json /api/yarn.lock ./
+COPY --from=builder --chown=node:node /api/dist ./dist
+
+CMD yarn start
