@@ -1,7 +1,13 @@
+[repo]
+name = "api"
+owner = "ijsKoud"
+description = "The code behind the API for various projects"
+license = "MIT"
+
 [project]
 icon = "https://ijskoud.dev/assets/svg/logo.svg"
 icon_width = "100px"
-version = "1.0.4"
+version = "1.1.0"
 
 [variables]
 information = "A personal api used for various projects (99.99% of them ran by me)."
