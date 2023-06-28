@@ -1,36 +1,40 @@
-import { bold } from "colorette";
-import express from "express";
-import RouteLoader from "./RouteLoader.js";
-import { createClient } from "redis";
-import MyAnimeListCron from "./Tasks/MyAnimeList.js";
-import { Logger, LogLevel } from "@snowcrystals/icicle";
+import { Server, type ServerOptions } from "@snowcrystals/highway";
+import { Logger } from "@snowcrystals/icicle";
+import { Redis as RedisClient } from "ioredis";
+import MyAnimeListTask from "../tasks/MyAnimeList.js";
 
-export default class {
-	public server = express();
-	public port = Number(process.env.PORT || 3000);
+export class ApiServer extends Server {
+	/** The redis database client */
+	public readonly redis: RedisClient;
 
-	public logger = new Logger({ level: LogLevel.Debug });
-	public loader = new RouteLoader(this);
+	/** The logger instance */
+	public readonly logger = new Logger({ name: "ApiServer" });
 
-	public redis = createClient({ url: process.env.DB_URL as string });
-
-	public async start() {
-		const route = await this.loader.load();
-		this.server.use(route);
-
-		this.cron();
-		await this.database();
-		this.server.listen(this.port, () => this.logger.info(`[API]: Server up and running on port ${bold(this.port)}!`));
+	public constructor(options: ApiServerOptions) {
+		super(options.highway);
+		this.redis = new RedisClient({ lazyConnect: true, ...options.redis });
 	}
 
-	private cron() {
-		MyAnimeListCron(this);
-	}
+	public override async listen(port: number) {
+		const serverCb = () => this.logger.info(`Server is listening to port ${port}.`);
+		const redisCb = (err?: Error | null) =>
+			err ? this.logger.error("Unable to connect to redis database - ", err) : this.logger.info("Connected to redis database.");
 
-	private async database() {
-		this.redis.on("ready", () => this.logger.info("[REDIS]: Connection established with remote database."));
-		this.redis.on("error", (err) => this.logger.error("[REDIS]: ", err));
-
-		await this.redis.connect();
+		await this.redis.connect(redisCb);
+		MyAnimeListTask(this);
+		return super.listen(port, serverCb);
 	}
+}
+
+export interface ApiServerOptions {
+	/** The options for the @snowcrystals/highway server */
+	highway: ServerOptions;
+
+	/** The redis database URL */
+	redis: {
+		username: string;
+		password: string;
+		host: string;
+		port: number;
+	};
 }
