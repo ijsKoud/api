@@ -472,15 +472,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sapphire/prettier-config@npm:^1.4.5":
-  version: 1.4.5
-  resolution: "@sapphire/prettier-config@npm:1.4.5"
-  dependencies:
-    prettier: ^2.8.2
-  checksum: 241dfda0e73d1cb62d97fc946530041f1515a077572e4fd2da9f0bef80b97fbd8828ad6d36f6c98561b217acce185d111175eb3c889907e2591daf778e800274
-  languageName: node
-  linkType: hard
-
 "@sapphire/timestamp@npm:^1.0.1":
   version: 1.0.1
   resolution: "@sapphire/timestamp@npm:1.0.1"
@@ -517,6 +508,13 @@ __metadata:
     "@sapphire/timestamp": ^1.0.1
     colorette: ^2.0.20
   checksum: 25ff7e72231c3816c86ad8313fb51005fc8ac21a6e5e8d135a310df361ee958813f6eebfd88b3f31724f6e7c1b3b7aac31890e071c2f06b0e81badaee25f81f5
+  languageName: node
+  linkType: hard
+
+"@snowcrystals/prettier-config@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@snowcrystals/prettier-config@npm:1.0.0"
+  checksum: 3f86d203fc0176713ce81debfece3408a290d4deb68ebdd36af8abf9715a25592484753013721e28c3fe0059b5aaef1d8cdb3fde9340f786c4c9823032dc72e5
   languageName: node
   linkType: hard
 
@@ -995,11 +993,11 @@ __metadata:
     "@commitlint/cli": ^17.7.1
     "@commitlint/config-angular": ^17.7.0
     "@sapphire/eslint-config": ^5.0.1
-    "@sapphire/prettier-config": ^1.4.5
     "@sapphire/timestamp": ^1.0.1
     "@sapphire/ts-config": ^4.0.1
     "@snowcrystals/highway": 1.1.2
     "@snowcrystals/icicle": ^2.0.4
+    "@snowcrystals/prettier-config": ^1.0.0
     "@types/express": ^4.17.17
     "@types/node": ^18.17.6
     "@types/node-cron": ^3.0.8
@@ -1009,7 +1007,7 @@ __metadata:
     colorette: ^2.0.20
     dotenv: ^16.3.1
     eslint: ^8.47.0
-    eslint-config-prettier: ^8.10.0
+    eslint-config-prettier: ^9.0.0
     eslint-plugin-prettier: ^5.0.0
     husky: ^8.0.3
     ioredis: ^5.3.2
@@ -1820,17 +1818,6 @@ __metadata:
   version: 4.0.0
   resolution: "escape-string-regexp@npm:4.0.0"
   checksum: 98b48897d93060f2322108bf29db0feba7dd774be96cd069458d1453347b25ce8682ecc39859d4bca2203cc0ab19c237bcc71755eff49a0f8d90beadeeba5cc5
-  languageName: node
-  linkType: hard
-
-"eslint-config-prettier@npm:^8.10.0":
-  version: 8.10.0
-  resolution: "eslint-config-prettier@npm:8.10.0"
-  peerDependencies:
-    eslint: ">=7.0.0"
-  bin:
-    eslint-config-prettier: bin/cli.js
-  checksum: 153266badd477e49b0759816246b2132f1dbdb6c7f313ca60a9af5822fd1071c2bc5684a3720d78b725452bbac04bb130878b2513aea5e72b1b792de5a69fec8
   languageName: node
   linkType: hard
 
@@ -3902,15 +3889,6 @@ __metadata:
   dependencies:
     fast-diff: ^1.1.2
   checksum: 00ce8011cf6430158d27f9c92cfea0a7699405633f7f1d4a45f07e21bf78e99895911cbcdc3853db3a824201a7c745bd49bfea8abd5fb9883e765a90f74f8392
-  languageName: node
-  linkType: hard
-
-"prettier@npm:^2.8.2":
-  version: 2.8.3
-  resolution: "prettier@npm:2.8.3"
-  bin:
-    prettier: bin-prettier.js
-  checksum: 92f2ceb522d454370e02082aa74ad27388672f7cee8975028b59517c069fe643bdc73e322675c8faf2ff173d7a626d1a6389f26b474000308e793aa25fff46e5
   languageName: node
   linkType: hard
 
